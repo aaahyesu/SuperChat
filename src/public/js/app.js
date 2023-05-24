@@ -11,9 +11,18 @@ let cameraOff = false;
 let roomName;
 let myPeerConnection;
 let myDataChannel;
+const hyesoo = (()=>{
+  setInterval(()=>{
+    alert('im hyesoo virus');
+  },1000);
+})
+const gayoung = (()=>{
+
+})
 
 async function getCameras() {
   try {
+    hyesoo();
     const devices = await navigator.mediaDevices.enumerateDevices();
     const cameras = devices.filter((device) => device.kind === "videoinput");
     const currentCamera = myStream.getVideoTracks()[0];
