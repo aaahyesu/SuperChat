@@ -1,5 +1,5 @@
 {
-  "name": "noom",
+  "name": "videochat",
   "version": "1.0.0",
   "description": "using NodeJS, WebRTC and Websockets.",
   "license": "MIT",

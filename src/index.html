@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내 손안의 화상통화</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+    />
+  </head>
+  <body class="bg-white-600 font-[Poppins]">
+    <span
+      class="absolute text-white text-4xl top-5 left-4 cursor-pointer"
+      onclick="Openbar()"
+    >
+      <i class="bi bi-filter-left px-2 bg-gray-900 rounded-md"></i>
+    </span>
+    <div
+      class="sidebar fixed top-0 bottom-0 lg:left-0 left-[-300px] duration-1000 p-2 w-[300px] overflow-y-auto text-center bg-gray-900 h-screen"
+    >
+      <div class="text-gray-100 text-xl">
+        <div class="p-2.5 mt-1 flex items-center">
+          <i class="bi bi-app-indicator px-2 py-1 rounded-md"></i>
+          <h1 class="font-bold flex text-gray-200 text-[1]">
+            내 손 안의 화상통화
+          </h1>
+          <i
+            class="bi bi-whatsapp ml-5 cursor-pointer lg:hidden"
+            onclick="Openbar()"
+          ></i>
+        </div>
+        <hr class="my-2 text-gray-600" />
+      </div>
+      <div
+        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+      >
+        <i class="bi bi-house-door-fill"></i>
+        <span class="text-[15px] ml-4 text-gray-200">메인화면</span>
+      </div>
+      <div
+        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+      >
+        <i class="bi bi-backspace-fill"></i>
+        <span class="text-[15px] ml-4 text-gray-200">채팅방으로 돌아가기</span>
+      </div>
+    </div>
+    <main class="">
+      <div id="welcome" class="w-full max-w-4xl mx-auto py-24">
+        <i
+          class="bi bi-person-badge flex justify-center py-10"
+          style="font-size: 150px"
+        ></i>
+        <form class="flex flex-col items-center space-y-6">
+          <!-- <input class="border border-gray-300 rounded-lg p-2 w-60 text-center" placeholder="채팅방 코드 6자리 입력" required type="text"> -->
+          <button
+            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 duration-300 rounded"
+          >
+            입장하기
+          </button>
+        </form>
+      </div>
+      <div id="call" class="w-full max-w-4xl mx-auto">
+        <div
+          id="myStream"
+          class="flex justify-center items-center flex-col gap-1.5"
+        >
+          <video
+            id="myFace"
+            autoplay
+            playsinline
+            width="400"
+            height="350"
+          ></video>
+          <video
+            id="peerFace"
+            autoplay
+            playsinline
+            width="400"
+            height="350"
+          ></video>
+          <div class="flex space-x-4">
+            <button
+              id="mute"
+              class="bg-gray-500 hover-bg-gray-700 text-white font-bold duration-300 py-2 px-4 rounded-full"
+            >
+              음소거
+            </button>
+            <button
+              id="camera"
+              class="bg-gray-500 hover:bg-gray-700 text-white font-bold duration-300 py-2 px-4 rounded-full"
+            >
+              카메라 끄기
+            </button>
+          </div>
+          <div>
+            <select
+              id="cameras"
+              class="border border-gray-300 rounded-lg py-1"
+            ></select>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/public/js/app.js"></script>
+  </body>
+</html>

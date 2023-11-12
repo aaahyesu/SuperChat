@@ -8,7 +8,6 @@ call.hidden = true;
 let myStream;
 let muted = false;
 let cameraOff = false;
-let roomName;
 let myPeerConnection;
 let myDataChannel;
 
@@ -33,7 +32,9 @@ async function getCameras() {
 async function getMedia(deviceId) {
   const initialConstrains = {
     audio: true,
-    video: { facingMode: "user" },
+    video: {
+      facingMode: "user",
+    },
   };
   const cameraConstraints = {
     audio: true,
@@ -91,6 +92,7 @@ camerasSelect.addEventListener("input", handleCameraChange);
 // Welcome Form (join a room)
 const welcome = document.getElementById("welcome");
 const welcomeForm = welcome.querySelector("form");
+const roomName = "1";
 async function initCall() {
   welcome.hidden = true;
   call.hidden = false;
@@ -99,11 +101,12 @@ async function initCall() {
 }
 async function handleWelcomeSubmit(event) {
   event.preventDefault();
-  const input = welcomeForm.querySelector("input");
+  // const input = welcomeForm.querySelector("input");
   await initCall();
-  socket.emit("join_room", input.value);
-  roomName = input.value;
-  input.value = "";
+  socket.emit("join_room", roomName);
+  // socket.emit("join_room", input.value);
+  // roomName = input.value;
+  // input.value = "";
 }
 welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 // Socket Code

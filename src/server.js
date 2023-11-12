@@ -1,16 +1,29 @@
-import http from "http";
-import SocketIO from "socket.io";
-import express from "express";
+const https = require("https");
+const fs = require("fs");
+const socketIO = require("socket.io");
+const express = require("express");
+const path = require("path");
+
+const options = {
+  key: fs.readFileSync("/Users/hyesu/_wildcard.example.dev+3-key.pem"),
+  cert: fs.readFileSync("/Users/hyesu/_wildcard.example.dev+3.pem"),
+};
+
 const app = express();
 
-app.set("view engine", "pug");
-app.set("views", __dirname + "/views");
-app.use("/public", express.static(__dirname + "/public"));
-app.get("/", (_, res) => res.render("home"));
-app.get("/*", (_, res) => res.redirect("/"));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
-const httpServer = http.createServer(app);
-const wsServer = SocketIO(httpServer);
+app.get("/:id", (_, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.get("/*", (_, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+const httpsServer = https.createServer(options, app); // HTTPS 서버 생성
+
+const wsServer = socketIO(httpsServer);
 
 wsServer.on("connection", (socket) => {
   socket.on("join_room", (roomName) => {
@@ -28,5 +41,5 @@ wsServer.on("connection", (socket) => {
   });
 });
 
-const handleListen = () => console.log("Lisening on http://localhost:3000");
-httpServer.listen(3000, handleListen);
+const handleListen = () => console.log("Listening on https://localhost:3001");
+httpsServer.listen(3001, handleListen); // HTTPS 서버로 변경
